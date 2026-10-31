@@ -1,89 +1,56 @@
-import { ArrowUpRight } from 'lucide-react'
-import { projects } from '../../data/projects'
-import { profile } from '../../data/profile'
-import type { Project } from '../../types'
-import { GitHubIcon } from '../ui/BrandIcons'
-import { Disclosure } from '../ui/Disclosure'
-import { LinkButton } from '../ui/LinkButton'
+import { ArrowUpRight, Building2, CalendarDays, ChevronDown } from 'lucide-react'
+import { engagements } from '../../data/experience'
 import { Section } from '../ui/Section'
-import { Tag, TagList } from '../ui/Tag'
+import { TagList } from '../ui/Tag'
 
-function DetailList({ title, items }: { title: string; items: string[] }) {
-  return (
-    <div>
-      <h4 className="text-xs font-semibold uppercase tracking-[0.12em] text-subtle">{title}</h4>
-      <ul className="mt-2.5 space-y-2" role="list">
-        {items.map((item) => (
-          <li key={item} className="flex gap-3 text-sm leading-relaxed text-muted">
-            <span aria-hidden="true" className="mt-2 size-1 shrink-0 rounded-full bg-accent" />
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
+const projectAccents = [
+  'from-teal-500/15 to-cyan-500/5',
+  'from-blue-500/15 to-indigo-500/5',
+  'from-orange-500/15 to-amber-500/5',
+  'from-violet-500/15 to-fuchsia-500/5',
+]
 
-function Evidence({ project }: { project: Project }) {
-  const { repoUrl, reportUrl, screenshots } = project.evidence
+function ClientProjectCard({ project, index }: { project: (typeof engagements)[number]; index: number }) {
   return (
-    <div className="space-y-3">
-      <h4 className="text-xs font-semibold uppercase tracking-[0.12em] text-subtle">Source</h4>
-      <div className="flex flex-wrap gap-2">
-        {repoUrl && (
-          <LinkButton href={repoUrl} external variant="secondary" icon={<GitHubIcon size={16} />}>
-            View on GitHub
-          </LinkButton>
-        )}
-        {reportUrl && (
-          <LinkButton href={reportUrl} external variant="secondary" icon={<ArrowUpRight size={16} aria-hidden="true" />}>
-            View report
-          </LinkButton>
-        )}
-      </div>
-      {screenshots && screenshots.length > 0 && (
-        <ul className="grid gap-3 sm:grid-cols-2" role="list">
-          {screenshots.map((shot) => (
-            <li key={shot.src}>
-              <img src={shot.src} alt={shot.alt} loading="lazy" className="rounded-lg border border-line" />
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  )
-}
-
-function ProjectCard({ project }: { project: Project }) {
-  return (
-    <article className="rounded-xl border border-line bg-surface shadow-card">
-      <Disclosure
-        label={`${project.title} details`}
-        header={
-          <>
-            {project.placeholder && (
-              <Tag tone="dashed" className="mb-3">
-                Placeholder · details pending
-              </Tag>
-            )}
-            <span className="block text-lg font-semibold leading-snug text-ink">{project.title}</span>
-            <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-wide text-accent">
-              {project.kind}
-            </span>
-            <span className="mt-3 block text-sm leading-relaxed text-muted">{project.overview}</span>
-            <span className="mt-4 block">
-              <TagList items={project.stack} />
-            </span>
-          </>
-        }
-      >
-        <div className="space-y-6">
-          <DetailList title="Architecture" items={project.architecture} />
-          <DetailList title="Key capabilities" items={project.capabilities} />
-          <Evidence project={project} />
+    <details className="group overflow-hidden rounded-2xl border border-line bg-surface shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-raised">
+      <summary className="list-none cursor-pointer [&::-webkit-details-marker]:hidden">
+        <div className={`relative min-h-36 overflow-hidden bg-gradient-to-br ${projectAccents[index % projectAccents.length]} p-5 sm:p-6`}>
+          <div className="absolute right-5 top-5 flex size-11 items-center justify-center rounded-xl border border-white/70 bg-white/70 text-ink shadow-sm">
+            <Building2 size={20} strokeWidth={1.7} />
+          </div>
+          <p className="font-mono text-[11px] font-semibold tracking-[0.18em] text-muted/80">CLIENT ENGAGEMENT / 0{index + 1}</p>
+          <p className="mt-5 text-2xl font-semibold tracking-tight text-ink">{project.client}</p>
+          <p className="mt-1 text-sm font-medium text-muted">{project.domain}</p>
         </div>
-      </Disclosure>
-    </article>
+        <div className="p-5 sm:p-6">
+          <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-muted">
+            <span className="rounded-full bg-accent-soft px-2.5 py-1 text-accent-strong">{project.role}</span>
+            <span className="inline-flex items-center gap-1"><CalendarDays size={13} />{project.dates}</span>
+          </div>
+          <h3 className="mt-4 text-xl font-semibold tracking-tight text-ink">{project.platform}</h3>
+          <p className="mt-2 text-sm leading-relaxed text-muted">{project.summary}</p>
+          <div className="mt-4"><TagList items={project.stack} /></div>
+          <div className="mt-5 flex items-center justify-between border-t border-line pt-4 text-sm font-semibold text-accent">
+            <span>View engagement details</span>
+            <ChevronDown size={18} className="transition-transform group-open:rotate-180" />
+          </div>
+        </div>
+      </summary>
+      <div className="grid gap-6 border-t border-line bg-canvas/70 p-5 sm:grid-cols-2 sm:p-6">
+        <div>
+          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-subtle">Responsibilities</p>
+          <ul className="mt-3 space-y-2.5">
+            {project.responsibilities.map((item) => <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-muted"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />{item}</li>)}
+          </ul>
+        </div>
+        <div>
+          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-subtle">Engineering contributions</p>
+          <ul className="mt-3 space-y-2.5">
+            {project.contributions.map((item) => <li key={item} className="flex gap-2.5 text-sm leading-relaxed text-muted"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />{item}</li>)}
+          </ul>
+        </div>
+      </div>
+    </details>
   )
 }
 
@@ -91,19 +58,16 @@ export function Projects() {
   return (
     <Section
       id="projects"
-      eyebrow="Projects"
-      title="Featured projects"
-      description="How I approach framework design, API testing and AI-assisted automation."
+      eyebrow="Selected enterprise work"
+      title="Real products. Real engineering."
+      description="A selection of client engagements from my professional experience. These are confidential enterprise programs, so I describe the work and my contributions without publishing client source code or internal screenshots."
     >
       <div className="grid items-start gap-5 md:grid-cols-2">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
+        {engagements.map((project, index) => <ClientProjectCard key={project.id} project={project} index={index} />)}
       </div>
-      <div className="mt-8">
-        <LinkButton href={profile.github} external variant="secondary" icon={<GitHubIcon size={16} />}>
-          Browse GitHub profile
-        </LinkButton>
+      <div className="mt-6 flex items-start gap-3 rounded-xl border border-dashed border-line-strong bg-white/60 p-4 text-sm text-muted">
+        <span className="mt-0.5 shrink-0 text-accent"><ArrowUpRight size={17} /></span>
+        <p>Project details are based on my resume and professional responsibilities. Client-owned code, credentials, production data and restricted artifacts are intentionally not shared.</p>
       </div>
     </Section>
   )
