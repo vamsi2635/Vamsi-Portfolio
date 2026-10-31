@@ -4,7 +4,6 @@ import { asset } from '../../lib/assets'
 import { GitHubIcon, LinkedInIcon } from '../ui/BrandIcons'
 import { LinkButton } from '../ui/LinkButton'
 import { ProfilePhoto } from '../ui/ProfilePhoto'
-import { TagList } from '../ui/Tag'
 
 export function Hero() {
   return (
@@ -41,7 +40,7 @@ export function Hero() {
               <LinkButton href="#experience" variant="secondary" icon={<ArrowDownRight size={16} aria-hidden="true" />}>
                 Explore my work
               </LinkButton>
-              <LinkButton href={`mailto:${profile.email}`} icon={<Mail size={16} aria-hidden="true"}>Contact</LinkButton>
+              <LinkButton href={`mailto:${profile.email}`} icon={<Mail size={16} aria-hidden="true" />}>Contact</LinkButton>
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-slate-400">
               <span className="inline-flex items-center gap-1.5"><MapPin size={13} />{profile.location}</span>
