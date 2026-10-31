@@ -1,65 +1,31 @@
 @import '@fontsource-variable/inter';
+@import '@fontsource/instrument-serif/400.css';
 @import 'tailwindcss';
 
 @theme {
-  --color-canvas: #f5f7fb;
-  --color-surface: #ffffff;
-  --color-sunken: #edf3fa;
-  --color-ink: #17263b;
-  --color-muted: #52647a;
-  --color-subtle: #78899d;
-  --color-line: #e1e8f0;
-  --color-line-strong: #cbd8e6;
-  --color-accent: #3d72b4;
-  --color-accent-strong: #285b99;
-  --color-accent-soft: #e7f0fb;
-  --color-night: #eaf2fb;
-  --color-night-soft: #dce9f7;
-
-  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --color-canvas: #f7f6f2; --color-surface: #ffffff; --color-sunken: #efeee9;
+  --color-ink: #172238; --color-muted: #5c6678; --color-subtle: #8991a0;
+  --color-line: #e6e4de; --color-line-strong: #d4d1c8;
+  --color-accent: #315fce; --color-accent-strong: #234cae; --color-accent-soft: #e9efff;
+  --color-night: #172238; --color-night-soft: #263650;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Instrument Serif', Georgia, serif;
   --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
-
-  --shadow-card: 0 8px 28px rgb(35 62 91 / 0.055);
-  --shadow-raised: 0 22px 60px -24px rgb(35 62 91 / 0.18);
-  --radius-card: 1.1rem;
-  --breakpoint-xs: 26rem;
+  --shadow-card: 0 8px 28px rgb(23 34 56 / 0.055);
+  --shadow-raised: 0 24px 70px -30px rgb(23 34 56 / 0.24);
+  --radius-card: 1rem; --breakpoint-xs: 26rem;
 }
-
 @layer base {
-  html {
-    scroll-behavior: smooth;
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-  }
-
-  body {
-    margin: 0;
-    background: var(--color-canvas);
-    color: var(--color-ink);
-    font-family: var(--font-sans);
-    font-feature-settings: 'cv11', 'ss01';
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; background: var(--color-canvas); color: var(--color-ink); font-family: var(--font-sans); font-feature-settings: 'cv11', 'ss01'; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
   ::selection { background: var(--color-accent-soft); color: var(--color-accent-strong); }
   :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
-  h1, h2, h3, h4 { text-wrap: balance; }
-  p { text-wrap: pretty; }
+  h1, h2, h3, h4 { text-wrap: balance; } p { text-wrap: pretty; }
 }
-
 @layer utilities {
-  .no-scrollbar { scrollbar-width: none; }
-  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; } .no-scrollbar::-webkit-scrollbar { display: none; }
   .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
-  .grid-glow {
-    background-image: linear-gradient(rgb(61 114 180 / 0.055) 1px, transparent 1px), linear-gradient(90deg, rgb(61 114 180 / 0.055) 1px, transparent 1px);
-    background-size: 34px 34px;
-  }
+  .grid-glow { background-image: linear-gradient(rgb(49 95 206 / 0.07) 1px, transparent 1px), linear-gradient(90deg, rgb(49 95 206 / 0.07) 1px, transparent 1px); background-size: 32px 32px; }
+  .eyebrow-line::before { content: ''; display: inline-block; width: 1.6rem; height: 1px; margin-right: .7rem; vertical-align: middle; background: currentColor; }
 }
